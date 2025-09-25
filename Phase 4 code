@@ -1,0 +1,27 @@
+GET /contacts?name=john
+GET /contacts?email=gmail.com
+GET /contacts?sort=createdAt:desc
+Json
+{
+  "page": 2,
+  "limit": 10,
+  "total": 47,
+  "contacts": [ ... ]
+}
+POST /contacts/123/tags
+{ "tags": ["work", "client"] }
+PATCH /contacts/123/restore
+{ "action": "UPDATE", "contactId": "123", "timestamp": "2025-09-25" }
+Json
+{ "error": "Invalid email", "code": "400_BAD_REQUEST" }
+GET /docs
+Js
+it("should create a contact", async () => {
+  const res = await request(app).post("/contacts").send({
+    name: "John Doe", email: "john@example.com"
+  });
+  expect(res.statusCode).toBe(201);
+});
+web: node dist/index.js
+git push heroku main
+heroku config:set MONGO_URI=xxxx JWT_SECRET=xxxx
